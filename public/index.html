@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <p>Chat App</p>
+    <form id="form">
+      <input type="text" id="name" />
+      <button type="submit">Submit</button>
+    </form>
+    <button type="button" id="get-location">Get location</button>
+
+    <button id="increment">Increment</button>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="./js/chat.js">
-
-    </script>
-</body>
-
+    <script src="./js/chat.js"></script>
+  </body>
 </html>

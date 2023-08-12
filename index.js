@@ -28,11 +28,18 @@ function main() {
         //@ts-ignore
         const io = (0, socket_io_1.default)(server);
         const publicDirectory = path_1.default.join(__dirname, "./public");
-        //Parse incoming requests to JSON
-        app.use(express_1.default.json());
         app.use(express_1.default.static(publicDirectory));
+        let count = 0;
         io.on("connection", (socket) => {
-            socket.emit("couterON");
+            socket.emit("message", "Welcome!");
+            socket.emit("countUpdated", count);
+            socket.on('increment', () => {
+                count++;
+                io.emit('countUpdated', count);
+            });
+            socket.on('sendMessage', (data) => {
+                io.emit('gotenMessage', data);
+            });
             console.log("New web socket connection...");
         });
         server.listen(PORT, () => __awaiter(this, void 0, void 0, function* () {
@@ -41,23 +48,3 @@ function main() {
     });
 }
 main();
-// class ExpressServer {
-//   protected app: express.Application;
-//   protected PORT = process.env.PORT || 3000;
-//   constructor() {
-//     this.app = express();
-//     this.setUpExpress();
-//   }
-//   protected async setUpExpress(): Promise<void> {
-//     const publicDirectory = path.join(__dirname, "./public");
-//     //Parse incoming requests to JSON
-//     this.app.use(express.json());
-//     this.app.use(express.static(publicDirectory));
-//     //Use user route handler
-//   }
-//   public async startUpServer(): Promise<void> {
-//     this.app.listen(this.PORT, async () => {
-//       console.log("Server Started...");
-//     });
-//   }
-// }
