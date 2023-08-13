@@ -1,0 +1,123 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+/* Styles for the main chat container */
+.chat {
+  display: flex;
+  height: 100vh; /* Make the chat container take the full viewport height */
+}
+
+/* Styles for the chat sidebar */
+.chat__sidebar {
+  flex: 0 0 20%; /* Make the sidebar 30% of the container width and not flexible */
+  background-color: #1e152a; /* Example background color */
+  /* Add other styling as needed */
+}
+
+/* Styles for the main chat area */
+.chat__main {
+  flex: 1; /* Make the main area take the remaining space */
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff; /* Example background color */
+  /* Add other styling as needed */
+}
+
+/* Styles for the chat messages */
+.chat__messages {
+  flex: 1; /* Make the messages area take the remaining space */
+  overflow-y: auto; /* Add scroll functionality if messages overflow */
+  padding: 20px; /* Add padding for better readability */
+}
+/* Styles for the compose area at the bottom */
+.compose {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px; /* Add padding for better spacing */
+  border-top: 1px solid #ccc; /* Add a border above the compose area */
+}
+
+#message-form {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+#message {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+#send-message,
+#get-location {
+  background-color: rgb(138, 40, 171); /* Example button color */
+  color: #ffffff; /* Example text color */
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#send-message {
+  margin-right: 10px; /* Add some spacing between buttons */
+}
+
+.message_name {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+/* Styles for the centered form container */
+.centerd-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Make the container take the full viewport height */
+}
+
+/* Styles for the centered form box */
+.centerd-form__box {
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f0f0f0; /* Example background color */
+  width: 300px; /* Adjust the width as needed */
+}
+
+.centerd-form__box h1 {
+  margin-bottom: 20px;
+}
+
+/* Styles for the form inside the centered form box */
+#join {
+  display: flex;
+  flex-direction: column;
+}
+
+#join label {
+  text-align: left;
+  margin-bottom: 5px;
+}
+
+#join input {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+#join button {
+  background-color: #007bff; /* Example button color */
+  color: #ffffff; /* Example text color */
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
