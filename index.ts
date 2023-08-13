@@ -40,6 +40,10 @@ async function main() {
       socket.emit("message",generateMessage('Admin',"Welcome!"));
 
       socket.broadcast.to(newUser.room).emit('message',generateMessage("Admin",`${newUser.username} has joined!`))
+      io.to(newUser.room).emit('roomData',{
+        room: newUser.room,
+        users: getUsersInRoom(newUser.room)
+      })
       callback();
     })
 
@@ -68,11 +72,19 @@ async function main() {
       callback();
     })
 
-    socket.on('disconnect',async ()=>{
-      const removedUser = await removeUser(socket.id);
-      if(removedUser !== undefined){
+    socket.on('disconnect', ()=>{
+      const removedUser =  removeUser(socket.id);
+      if(removedUser as IUser){
         //@ts-ignore
         io.to(removeUser.room).emit('message', generateMessage( removeUser.username,`${removeUser.username} has left the room!`))
+        //@ts-ignore
+        io.to(removeUser.roon).emit('roomData',{
+          
+          //@ts-ignore
+          room: removeUser.room,
+          //@ts-ignore
+          users: getUsersInRoom(removeUser.room)
+        })
       }
 
     })

@@ -12,11 +12,36 @@ const $messages = document.querySelector("#messages");
 //Templates
 const messageTemplate = document.querySelector("#message-template").innerHTML;
 const locationTemplate = document.querySelector("#location-template").innerHTML;
+const sidebarTemplate = document.querySelector("#sidebar-template").innerHTML;
 
 //Options
 const { username, room } = Qs.parse(location.search, {
   ignoreQueryPrefix: true,
 });
+
+const autoScroll = () => {
+  //New message
+  const $newMessage = $messages.lastElementChild;
+
+  // Height of new message
+  const newMessageStyles = getComputedStyle($newMessage);
+  const newMessageMargin = parseInt(newMessageStyles.marginBottom);
+  const newMessageHight = $newMessage.offsetHeight + newMessageMargin;
+
+  // Visible height
+  const visibleHeight = $messages.offsetHeight;
+
+  //Height of mes container
+  const containerHeight = $messages.scrollHeight;
+
+  // How far has been scroled
+  const scrollOffset = $messages.scrollTop + visibleHeight;
+
+  if (containerHeight - newMessageHight <= scrollOffset) {
+    $messages.scrollTop = $messages.scrollHeight;
+  }
+  console.log(newMessageMargin);
+};
 
 socket.on("locationMessage", (message) => {
   console.log(message);
@@ -30,6 +55,19 @@ socket.on("locationMessage", (message) => {
   $messages.insertAdjacentHTML("beforeend", html);
 });
 
+socket.on("roomData", ({ room, users }) => {
+  console.log("room " + room);
+  console.log("users " + users);
+  // Mustache library
+  const html = Mustache.render(sidebarTemplate, {
+    room,
+    users,
+  });
+  // Inject html
+  document.querySelector("#sidebar").innerHTML = html;
+  autoScroll();
+});
+
 socket.on("message", (message) => {
   console.log(message);
   // Mustache library
@@ -40,6 +78,7 @@ socket.on("message", (message) => {
   });
   // Inject html
   $messages.insertAdjacentHTML("beforeend", html);
+  autoScroll();
 });
 
 socket.on("gotenMessage", (message) => [console.log(message)]);
@@ -47,8 +86,9 @@ socket.on("gotenMessage", (message) => [console.log(message)]);
 $messageForm.addEventListener("submit", (e) => {
   e.preventDefault();
   // disable send button
+  console.log("message " + $messageFormInput.value);
   $messageFormButton.setAttribute("disabled", "disabled");
-  const message = e.target.elements.message.value;
+  const message = $messageFormInput.value;
 
   socket.emit("sendMessage", message, (error) => {
     // Enable button after message was acknowleged

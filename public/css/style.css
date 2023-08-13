@@ -94,7 +94,19 @@ body {
 .centerd-form__box h1 {
   margin-bottom: 20px;
 }
+.list-title {
+  color: white;
+  padding: 0px 20px;
+}
+.users li {
+  color: white;
+}
 
+.room-title {
+  text-align: center;
+  color: white;
+  font-size: 30px;
+}
 /* Styles for the form inside the centered form box */
 #join {
   display: flex;

@@ -42,6 +42,10 @@ function main() {
                 socket.join(room);
                 socket.emit("message", (0, messages_1.generateMessage)('Admin', "Welcome!"));
                 socket.broadcast.to(newUser.room).emit('message', (0, messages_1.generateMessage)("Admin", `${newUser.username} has joined!`));
+                io.to(newUser.room).emit('roomData', {
+                    room: newUser.room,
+                    users: (0, users_1.getUsersInRoom)(newUser.room)
+                });
                 callback();
             });
             socket.on('sendMessage', (data, callback) => __awaiter(this, void 0, void 0, function* () {
@@ -63,13 +67,20 @@ function main() {
                 io.emit('locationMessage', (0, messages_1.generateLocationMesssage)(user === null || user === void 0 ? void 0 : user.username, `https://google.com/maps/?q=${cords.latitude},${cords.longitude}`));
                 callback();
             }));
-            socket.on('disconnect', () => __awaiter(this, void 0, void 0, function* () {
-                const removedUser = yield (0, users_1.removeUser)(socket.id);
-                if (removedUser !== undefined) {
+            socket.on('disconnect', () => {
+                const removedUser = (0, users_1.removeUser)(socket.id);
+                if (removedUser) {
                     //@ts-ignore
                     io.to(users_1.removeUser.room).emit('message', (0, messages_1.generateMessage)(users_1.removeUser.username, `${users_1.removeUser.username} has left the room!`));
+                    //@ts-ignore
+                    io.to(users_1.removeUser.roon).emit('roomData', {
+                        //@ts-ignore
+                        room: users_1.removeUser.room,
+                        //@ts-ignore
+                        users: (0, users_1.getUsersInRoom)(users_1.removeUser.room)
+                    });
                 }
-            }));
+            });
         });
         server.listen(PORT, () => __awaiter(this, void 0, void 0, function* () {
             console.log(`Server Started on port ${PORT}...`);

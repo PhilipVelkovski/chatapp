@@ -36,7 +36,7 @@ export const addUser = (user: IUser) => {
   return user;
 };
 
-export const removeUser = async (roomId:string) => { 
+export const removeUser =  (roomId:string) => { 
     const index = users.findIndex((user)=>
         user.roomId === roomId
     )
@@ -48,13 +48,13 @@ export const removeUser = async (roomId:string) => {
 }
 
 
-export const getUser =  async (roomId:string) => { 
+export const getUser =   (roomId:string) => { 
     return users.find((user)=> user.roomId === roomId)
 }
 
 
 export const getUsersInRoom = (room:string) => { 
-    room = room.trim().toLowerCase();
+    // room = room.trim().toLowerCase();
     return users.filter((user)=>user.room === room);    
 }
 
