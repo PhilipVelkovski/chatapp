@@ -78,7 +78,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Make the container take the full viewport height */
+  height: 100vh;
 }
 
 /* Styles for the centered form box */
@@ -87,8 +87,8 @@ body {
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  background-color: #f0f0f0; /* Example background color */
-  width: 300px; /* Adjust the width as needed */
+  background-color: #f0f0f0;
+  width: 300px;
 }
 
 .centerd-form__box h1 {
@@ -107,7 +107,6 @@ body {
   color: white;
   font-size: 30px;
 }
-/* Styles for the form inside the centered form box */
 #join {
   display: flex;
   flex-direction: column;
@@ -126,8 +125,8 @@ body {
 }
 
 #join button {
-  background-color: #007bff; /* Example button color */
-  color: #ffffff; /* Example text color */
+  background-color: #007bff;
+  color: #ffffff;
   border: none;
   padding: 10px 15px;
   border-radius: 5px;
